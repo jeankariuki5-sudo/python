@@ -50,7 +50,7 @@ while True:
 
             while trial > 0:
                 user_name = input("Enter your Username: ")
-                password = input("Enter your password")
+                password = input("Enter your password: ")
 
                 for account in users:
                     if account["Username"] == user_name and account["Password"] == password:
@@ -70,9 +70,72 @@ while True:
         # Exit
         elif option == "3":
             print("Thank You for choosing Soko Bank. Good bye!")
+            break
     
         else:
-            print("Invalid choice. Pleasse select 1, 2 or 3")
+            print("Invalid choice. Please select 1, 2 or 3")
 
     # Banking menu
-    
+    else:
+        # current_acc = None
+        for account in users:
+            if account["Username"] == logged_in:
+                current_acc = account
+            print("==========================")
+            print(f"SOKO BANK | {logged_in}")
+            print("==========================")
+            print("1. Deposit")
+            print("2. Withdraw")
+            print("3. Check Balance")
+            print("4. Exit")
+            print("==========================")
+
+            choice = input("Enter your choice: ")
+
+            # Deposit
+            if choice == "1":
+                print("==========================")
+                print("Deposit")
+                print("==========================")
+
+                amount = float(input("Enter the amount You would wish to Deposit: Ksh "))
+                if amount > 0:
+                    current_acc["Balance"] += amount
+                    print(f"Ksh {amount} has successfully deposited into your account. Current balance Ksh: {current_acc["Balance"]}")
+                else:
+                    print("Invalid amount")
+
+            # Withdraw
+            elif choice == "2":
+                print("==========================")
+                print("Withdraw")
+                print("==========================")
+
+                amount = float(input("Enter the amount your wold wish to withdraw: Ksh "))
+                if amount <= 0:
+                    print("Invalid amount")
+                elif amount > current_acc["Balance"]:
+                    print("Insufficient Funds")
+                else:
+                    current_acc["Balance"] -= amount
+                    print(f"Ksh {amount} has succesfully been withdrawn fron your account. Current balance Ksh {current_acc["Balance"]}")
+
+            # Check balance
+            elif choice == "3":
+                print("==========================")
+                print("Balance")
+                print("==========================")
+
+                print(f"Current Balance: Ksh {current_acc["Balance"]}")
+
+            # Exit
+            elif choice == "4":
+                print("==========================")
+                print("SOKO BANK")
+                print("==========================")
+
+                print(f"Good Bye, {logged_in}")
+                break
+
+            else:
+                print("Invalid choice. Please select 1,2,3 or 4")
